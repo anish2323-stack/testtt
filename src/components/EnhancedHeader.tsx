@@ -74,12 +74,12 @@ const EnhancedHeader = () => {
             {/* Logo with animation */}
             <Link to="/" className="flex items-center space-x-3 group">
               <div className="relative">
-                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300">
+                <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl flex items-center justify-center transform group-hover:scale-110 transition-transform duration-300 group-hover:rotate-12">
                   <Gamepad2 className="h-7 w-7 text-white" />
                 </div>
-                <div className="absolute inset-0 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl opacity-0 group-hover:opacity-20 group-hover:animate-ping"></div>
+                <div className="absolute inset-0 w-12 h-12 bg-gradient-to-r from-blue-500 to-purple-600 rounded-xl opacity-0 group-hover:opacity-30 group-hover:animate-ping"></div>
               </div>
-              <span className="text-2xl font-bold text-white group-hover:text-blue-400 transition-colors">
+              <span className="text-2xl font-bold text-white group-hover:gradient-text transition-all duration-300">
                 GameHost.in
               </span>
             </Link>
@@ -89,23 +89,23 @@ const EnhancedHeader = () => {
               {/* Game Hosting Dropdown */}
               <div className="relative group">
                 <button 
-                  className="flex items-center space-x-1 text-gray-300 hover:text-white transition-colors py-2"
+                  className="flex items-center space-x-1 text-gray-300 hover:text-white transition-all duration-300 py-2 hover:scale-105"
                   onClick={() => handleDropdownToggle('game')}
                 >
                   <Gamepad2 className="h-4 w-4" />
                   <span>Game Hosting</span>
-                  <ChevronDown className="h-4 w-4 group-hover:rotate-180 transition-transform duration-300" />
+                  <ChevronDown className="h-4 w-4 group-hover:rotate-180 transition-transform duration-500" />
                 </button>
-                <div className="absolute top-full left-0 mt-2 w-64 bg-gray-800/95 backdrop-blur-md rounded-xl shadow-2xl border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
+                <div className="absolute top-full left-0 mt-2 w-64 bg-gray-800/95 backdrop-blur-md rounded-xl shadow-2xl border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 animate-scale-in">
                   <div className="py-3">
                     {gameHostingItems.map((item, index) => (
                       <Link 
                         key={index} 
                         to={item.path} 
-                        className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-700/50 transition-all duration-200 group/item"
+                        className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-700/50 transition-all duration-300 group/item hover:translate-x-2"
                       >
                         <span className="text-lg">{item.icon}</span>
-                        <span className="group-hover/item:translate-x-1 transition-transform duration-200">{item.name}</span>
+                        <span className="group-hover/item:text-blue-400 transition-colors duration-300">{item.name}</span>
                       </Link>
                     ))}
                   </div>
@@ -115,23 +115,23 @@ const EnhancedHeader = () => {
               {/* Other Hosting Dropdown */}
               <div className="relative group">
                 <button 
-                  className="flex items-center space-x-1 text-gray-300 hover:text-white transition-colors py-2"
+                  className="flex items-center space-x-1 text-gray-300 hover:text-white transition-all duration-300 py-2 hover:scale-105"
                   onClick={() => handleDropdownToggle('other')}
                 >
                   <Server className="h-4 w-4" />
                   <span>Other Hosting</span>
-                  <ChevronDown className="h-4 w-4 group-hover:rotate-180 transition-transform duration-300" />
+                  <ChevronDown className="h-4 w-4 group-hover:rotate-180 transition-transform duration-500" />
                 </button>
-                <div className="absolute top-full left-0 mt-2 w-56 bg-gray-800/95 backdrop-blur-md rounded-xl shadow-2xl border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2">
+                <div className="absolute top-full left-0 mt-2 w-56 bg-gray-800/95 backdrop-blur-md rounded-xl shadow-2xl border border-gray-700 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-300 transform group-hover:translate-y-0 translate-y-2 animate-scale-in">
                   <div className="py-3">
                     {otherHostingItems.map((item, index) => (
                       <Link 
                         key={index} 
                         to={item.path} 
-                        className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-700/50 transition-all duration-200 group/item"
+                        className="flex items-center space-x-3 px-4 py-3 text-gray-300 hover:text-white hover:bg-gray-700/50 transition-all duration-300 group/item hover:translate-x-2"
                       >
                         <span className="text-lg">{item.icon}</span>
-                        <span className="group-hover/item:translate-x-1 transition-transform duration-200">{item.name}</span>
+                        <span className="group-hover/item:text-purple-400 transition-colors duration-300">{item.name}</span>
                       </Link>
                     ))}
                   </div>
@@ -183,21 +183,21 @@ const EnhancedHeader = () => {
 
             {/* Right Side Buttons */}
             <div className="hidden lg:flex items-center space-x-4">
-              <button className="text-gray-300 hover:text-white transition-colors hover:scale-105 transform duration-200">
+              <button className="text-gray-300 hover:text-white transition-all duration-300 hover:scale-105 transform hover:text-blue-400">
                 Try For Free
               </button>
-              <button className="text-gray-300 hover:text-white transition-colors hover:scale-105 transform duration-200">
+              <button className="text-gray-300 hover:text-white transition-all duration-300 hover:scale-105 transform hover:text-green-400">
                 Login
               </button>
-              <button className="relative bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 font-semibold transform hover:scale-105 hover:shadow-lg overflow-hidden group">
+              <button className="relative bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-2 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 font-semibold transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25 overflow-hidden group">
                 <span className="relative z-10">Order Now</span>
-                <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
+                <div className="absolute inset-0 bg-white opacity-0 group-hover:opacity-20 transition-opacity duration-300 animate-shimmer"></div>
               </button>
             </div>
 
             {/* Mobile Menu Button */}
             <button 
-              className="lg:hidden text-gray-300 hover:text-white transform hover:scale-110 transition-all duration-200"
+              className="lg:hidden text-gray-300 hover:text-white transform hover:scale-110 transition-all duration-300 hover:rotate-90"
               onClick={() => setIsMenuOpen(!isMenuOpen)}
             >
               {isMenuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -211,7 +211,7 @@ const EnhancedHeader = () => {
                 <div className="space-y-2">
                   <div className="text-gray-300 font-semibold">Game Hosting</div>
                   {gameHostingItems.map((item, index) => (
-                    <Link key={index} to={item.path} className="flex items-center space-x-2 pl-4 text-gray-400 hover:text-white text-sm py-1 hover:translate-x-1 transition-all duration-200">
+                    <Link key={index} to={item.path} className="flex items-center space-x-2 pl-4 text-gray-400 hover:text-white text-sm py-1 hover:translate-x-2 transition-all duration-300 hover:text-blue-400">
                       <span>{item.icon}</span>
                       <span>{item.name}</span>
                     </Link>
@@ -220,16 +220,16 @@ const EnhancedHeader = () => {
                 <div className="space-y-2">
                   <div className="text-gray-300 font-semibold">Other Hosting</div>
                   {otherHostingItems.map((item, index) => (
-                    <Link key={index} to={item.path} className="flex items-center space-x-2 pl-4 text-gray-400 hover:text-white text-sm py-1 hover:translate-x-1 transition-all duration-200">
+                    <Link key={index} to={item.path} className="flex items-center space-x-2 pl-4 text-gray-400 hover:text-white text-sm py-1 hover:translate-x-2 transition-all duration-300 hover:text-purple-400">
                       <span>{item.icon}</span>
                       <span>{item.name}</span>
                     </Link>
                   ))}
                 </div>
                 <div className="pt-4 space-y-2">
-                  <button className="block w-full text-left text-gray-300 hover:text-white py-2 hover:translate-x-1 transition-all duration-200">Try For Free</button>
-                  <button className="block w-full text-left text-gray-300 hover:text-white py-2 hover:translate-x-1 transition-all duration-200">Login</button>
-                  <button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 font-semibold transform hover:scale-105">
+                  <button className="block w-full text-left text-gray-300 hover:text-white py-2 hover:translate-x-2 transition-all duration-300 hover:text-blue-400">Try For Free</button>
+                  <button className="block w-full text-left text-gray-300 hover:text-white py-2 hover:translate-x-2 transition-all duration-300 hover:text-green-400">Login</button>
+                  <button className="w-full bg-gradient-to-r from-blue-500 to-purple-600 text-white px-6 py-3 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 font-semibold transform hover:scale-105 hover:shadow-lg">
                     Order Now
                   </button>
                 </div>

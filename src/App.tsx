@@ -1,7 +1,8 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import { Routes, Route } from 'react-router-dom';
+import { Routes, Route, useLocation } from 'react-router-dom';
 import LoadingScreen from './components/LoadingScreen';
+import PageTransitionWrapper from './components/PageTransitionWrapper';
 import EnhancedHeader from './components/EnhancedHeader';
 import Home from './pages/Home';
 import MinecraftHosting from './pages/game-hosting/MinecraftHosting';
@@ -30,11 +31,24 @@ import Footer from './components/Footer';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
+  const location = useLocation();
 
   const handleLoadingComplete = () => {
     setIsLoading(false);
   };
 
+  // Get page name from pathname
+  const getPageName = (pathname: string) => {
+    const segments = pathname.split('/').filter(Boolean);
+    if (segments.length === 0) return 'Home';
+    
+    const pageName = segments[segments.length - 1]
+      .split('-')
+      .map(word => word.charAt(0).toUpperCase() + word.slice(1))
+      .join(' ');
+    
+    return pageName;
+  };
   if (isLoading) {
     return <LoadingScreen onLoadingComplete={handleLoadingComplete} />;
   }
@@ -43,37 +57,129 @@ function App() {
     <div className="min-h-screen bg-gray-900">
       <EnhancedHeader />
       <Routes>
-        <Route path="/" element={<Home />} />
+        <Route path="/" element={
+          <PageTransitionWrapper pageName="Home">
+            <Home />
+          </PageTransitionWrapper>
+        } />
         
         {/* Game Hosting Routes */}
-        <Route path="/minecraft-hosting" element={<MinecraftHosting />} />
-        <Route path="/ark-hosting" element={<ArkHosting />} />
-        <Route path="/fivem-hosting" element={<FiveMHosting />} />
-        <Route path="/terraria-hosting" element={<TerrariaHosting />} />
-        <Route path="/rust-hosting" element={<RustHosting />} />
-        <Route path="/valheim-hosting" element={<ValheimHosting />} />
-        <Route path="/palworld-hosting" element={<PalworldHosting />} />
+        <Route path="/minecraft-hosting" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <MinecraftHosting />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/ark-hosting" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <ArkHosting />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/fivem-hosting" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <FiveMHosting />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/terraria-hosting" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <TerrariaHosting />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/rust-hosting" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <RustHosting />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/valheim-hosting" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <ValheimHosting />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/palworld-hosting" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <PalworldHosting />
+          </PageTransitionWrapper>
+        } />
         
         {/* Other Hosting Routes */}
-        <Route path="/amd-vps" element={<AMDVps />} />
-        <Route path="/intel-vps" element={<IntelVps />} />
-        <Route path="/web-hosting" element={<WebHosting />} />
-        <Route path="/bot-hosting" element={<BotHosting />} />
-        <Route path="/domain-selling" element={<DomainSelling />} />
+        <Route path="/amd-vps" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <AMDVps />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/intel-vps" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <IntelVps />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/web-hosting" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <WebHosting />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/bot-hosting" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <BotHosting />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/domain-selling" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <DomainSelling />
+          </PageTransitionWrapper>
+        } />
         
         {/* Important Routes */}
-        <Route path="/our-commitment" element={<OurCommitment />} />
-        <Route path="/career" element={<Career />} />
-        <Route path="/about-us" element={<AboutUs />} />
-        <Route path="/contact-us" element={<ContactUs />} />
-        <Route path="/infrastructure" element={<Infrastructure />} />
-        <Route path="/partnership" element={<Partnership />} />
+        <Route path="/our-commitment" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <OurCommitment />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/career" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <Career />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/about-us" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <AboutUs />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/contact-us" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <ContactUs />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/infrastructure" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <Infrastructure />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/partnership" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <Partnership />
+          </PageTransitionWrapper>
+        } />
         
         {/* Legal Routes */}
-        <Route path="/terms-of-service" element={<TermsOfService />} />
-        <Route path="/privacy-policy" element={<PrivacyPolicy />} />
-        <Route path="/refund-policy" element={<RefundPolicy />} />
-        <Route path="/usage-policy" element={<UsagePolicy />} />
+        <Route path="/terms-of-service" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <TermsOfService />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/privacy-policy" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <PrivacyPolicy />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/refund-policy" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <RefundPolicy />
+          </PageTransitionWrapper>
+        } />
+        <Route path="/usage-policy" element={
+          <PageTransitionWrapper pageName={getPageName(location.pathname)}>
+            <UsagePolicy />
+          </PageTransitionWrapper>
+        } />
       </Routes>
       <Footer />
     </div>

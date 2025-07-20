@@ -1,16 +1,29 @@
 import React, { useEffect, useState } from 'react';
-import { Gamepad2 } from 'lucide-react';
+import { Gamepad2, Loader2 } from 'lucide-react';
 
 interface LoadingScreenProps {
   onLoadingComplete: () => void;
+  isPageTransition?: boolean;
+  currentPage?: string;
 }
 
-const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
+const LoadingScreen: React.FC<LoadingScreenProps> = ({ 
+  onLoadingComplete, 
+  isPageTransition = false,
+  currentPage = ''
+}) => {
   const [progress, setProgress] = useState(0);
-  const [loadingText, setLoadingText] = useState('Initializing...');
+  const [loadingText, setLoadingText] = useState(
+    isPageTransition ? `Loading ${currentPage}...` : 'Initializing...'
+  );
 
   useEffect(() => {
-    const loadingSteps = [
+    const loadingSteps = isPageTransition ? [
+      { progress: 25, text: `Loading ${currentPage}...` },
+      { progress: 50, text: 'Fetching content...' },
+      { progress: 75, text: 'Optimizing display...' },
+      { progress: 100, text: 'Ready!' }
+    ] : [
       { progress: 20, text: 'Loading servers...' },
       { progress: 40, text: 'Connecting to data centers...' },
       { progress: 60, text: 'Optimizing performance...' },
@@ -19,6 +32,8 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
     ];
 
     let currentStep = 0;
+    const stepDuration = isPageTransition ? 500 : 600;
+    
     const interval = setInterval(() => {
       if (currentStep < loadingSteps.length) {
         setProgress(loadingSteps[currentStep].progress);
@@ -28,18 +43,20 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
         clearInterval(interval);
         setTimeout(() => {
           onLoadingComplete();
-        }, 500);
+        }, isPageTransition ? 200 : 500);
       }
-    }, 600);
+    }, stepDuration);
 
     return () => clearInterval(interval);
-  }, [onLoadingComplete]);
+  }, [onLoadingComplete, isPageTransition, currentPage]);
 
   return (
-    <div className="fixed inset-0 bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 flex items-center justify-center z-50">
+    <div className={`fixed inset-0 bg-gradient-to-br from-gray-900 via-purple-900 to-blue-900 flex items-center justify-center z-50 ${
+      isPageTransition ? 'animate-fade-in' : ''
+    }`}>
       {/* Animated background particles */}
       <div className="absolute inset-0 overflow-hidden">
-        {[...Array(50)].map((_, i) => (
+        {[...Array(isPageTransition ? 20 : 50)].map((_, i) => (
           <div
             key={i}
             className="absolute w-1 h-1 bg-blue-400 rounded-full animate-pulse"
@@ -56,20 +73,30 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
       <div className="text-center z-10">
         {/* Animated logo */}
         <div className="mb-8 relative">
-          <div className="w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto animate-bounce">
-            <Gamepad2 className="h-12 w-12 text-white" />
+          <div className={`${isPageTransition ? 'w-16 h-16' : 'w-24 h-24'} bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl flex items-center justify-center mx-auto ${
+            isPageTransition ? 'animate-spin' : 'animate-bounce'
+          }`}>
+            {isPageTransition ? (
+              <Loader2 className={`${isPageTransition ? 'h-8 w-8' : 'h-12 w-12'} text-white`} />
+            ) : (
+              <Gamepad2 className="h-12 w-12 text-white" />
+            )}
           </div>
-          <div className="absolute inset-0 w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl mx-auto animate-ping opacity-20"></div>
+          {!isPageTransition && (
+            <div className="absolute inset-0 w-24 h-24 bg-gradient-to-r from-blue-500 to-purple-600 rounded-2xl mx-auto animate-ping opacity-20"></div>
+          )}
         </div>
 
         {/* Brand name with typing effect */}
-        <h1 className="text-4xl font-bold text-white mb-2 animate-pulse">
+        <h1 className={`${isPageTransition ? 'text-2xl' : 'text-4xl'} font-bold text-white mb-2 animate-pulse`}>
           GameHost.in
         </h1>
-        <p className="text-blue-300 mb-8 animate-fade-in">India's Premier Gaming Host</p>
+        {!isPageTransition && (
+          <p className="text-blue-300 mb-8 animate-fade-in">India's Premier Gaming Host</p>
+        )}
 
         {/* Progress bar */}
-        <div className="w-80 mx-auto mb-4">
+        <div className={`${isPageTransition ? 'w-64' : 'w-80'} mx-auto mb-4`}>
           <div className="bg-gray-700 rounded-full h-2 overflow-hidden">
             <div 
               className="bg-gradient-to-r from-blue-500 to-purple-600 h-full rounded-full transition-all duration-500 ease-out relative"
@@ -84,7 +111,7 @@ const LoadingScreen: React.FC<LoadingScreenProps> = ({ onLoadingComplete }) => {
         <p className="text-gray-300 text-sm animate-pulse">{loadingText}</p>
         
         {/* Progress percentage */}
-        <p className="text-blue-400 text-lg font-semibold mt-2">{progress}%</p>
+        <p className={`text-blue-400 ${isPageTransition ? 'text-base' : 'text-lg'} font-semibold mt-2`}>{progress}%</p>
       </div>
     </div>
   );

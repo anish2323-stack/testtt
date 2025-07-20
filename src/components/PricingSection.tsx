@@ -288,10 +288,10 @@ const PricingSection = () => {
     }
   ];
   const PricingCard = ({ plan, type = 'default' }: { plan: any, type?: string }) => (
-    <div className={`relative bg-gray-800/50 backdrop-blur-sm border ${plan.popular ? 'border-blue-500' : 'border-gray-700'} rounded-xl p-6 hover:bg-gray-800/70 transition-all duration-200 group`}>
+    <div className={`relative bg-gray-800/50 backdrop-blur-sm border ${plan.popular ? 'border-blue-500' : 'border-gray-700'} rounded-xl p-6 hover:bg-gray-800/70 transition-all duration-300 group hover-lift hover:border-blue-400 animate-fade-in`}>
       {plan.popular && (
         <div className="absolute -top-3 left-1/2 transform -translate-x-1/2">
-          <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center space-x-1">
+          <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white px-4 py-1 rounded-full text-sm font-semibold flex items-center space-x-1 animate-pulse">
             <Star className="h-3 w-3" />
             <span>Most Popular</span>
           </div>
@@ -300,7 +300,7 @@ const PricingSection = () => {
       
       {/* India Badge */}
       <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-2 bg-green-500/20 border border-green-500/30 rounded-full px-3 py-1">
+        <div className="flex items-center space-x-2 bg-green-500/20 border border-green-500/30 rounded-full px-3 py-1 group-hover:bg-green-500/30 transition-colors duration-300">
           <MapPin className="h-3 w-3 text-green-400" />
           <span className="text-green-300 text-xs font-medium">Hosted in India</span>
         </div>
@@ -318,24 +318,24 @@ const PricingSection = () => {
           <p className="text-purple-400 text-sm font-medium mb-2">{plan.game} Hosting</p>
         )}
         <div className="flex items-end space-x-1">
-          <span className="text-3xl font-bold text-white">{plan.price}</span>
+          <span className="text-3xl font-bold text-white group-hover:gradient-text transition-all duration-300">{plan.price}</span>
           <span className="text-gray-400 text-sm">{plan.period}</span>
         </div>
       </div>
 
       <ul className="space-y-3 mb-6">
         {plan.features.map((feature: string, index: number) => (
-          <li key={index} className="flex items-center space-x-3">
-            <Check className="h-4 w-4 text-green-400 flex-shrink-0" />
+          <li key={index} className="flex items-center space-x-3 group-hover:translate-x-1 transition-transform duration-300" style={{ transitionDelay: `${index * 50}ms` }}>
+            <Check className="h-4 w-4 text-green-400 flex-shrink-0 group-hover:text-green-300 transition-colors duration-300" />
             <span className="text-gray-300 text-sm">{feature}</span>
           </li>
         ))}
       </ul>
 
-      <button className={`w-full py-3 rounded-lg font-semibold transition-all duration-200 ${
+      <button className={`w-full py-3 rounded-lg font-semibold transition-all duration-300 transform hover:scale-105 ${
         plan.popular 
-          ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700' 
-          : 'bg-gray-700 text-white hover:bg-gray-600'
+          ? 'bg-gradient-to-r from-blue-500 to-purple-600 text-white hover:from-blue-600 hover:to-purple-700 hover:shadow-lg hover:shadow-blue-500/25' 
+          : 'bg-gray-700 text-white hover:bg-gray-600 hover:shadow-lg'
       }`}>
         Get Started
       </button>
@@ -417,7 +417,8 @@ const PricingSection = () => {
             {whyChooseFeatures.map((feature, index) => (
               <div 
                 key={index} 
-                className="group bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-xl p-8 hover:bg-gray-900/70 transition-all duration-300 hover:scale-105 hover:shadow-2xl"
+                className="group bg-gray-900/50 backdrop-blur-sm border border-gray-700 rounded-xl p-8 hover:bg-gray-900/70 transition-all duration-300 hover-lift hover:border-blue-500/50 animate-fade-in"
+                style={{ animationDelay: `${index * 100}ms` }}
               >
                 <div className={`w-16 h-16 bg-gradient-to-r ${feature.color} rounded-xl flex items-center justify-center mb-6 group-hover:scale-110 transition-transform duration-300`}>
                   {feature.icon}
@@ -434,7 +435,7 @@ const PricingSection = () => {
 
           {/* Call to Action */}
           <div className="text-center mt-16">
-            <div className="bg-gradient-to-r from-blue-500/10 to-purple-600/10 backdrop-blur-sm border border-blue-500/30 rounded-2xl p-8 max-w-4xl mx-auto">
+            <div className="bg-gradient-to-r from-blue-500/10 to-purple-600/10 backdrop-blur-sm border border-blue-500/30 rounded-2xl p-8 max-w-4xl mx-auto hover:border-blue-400/50 transition-all duration-300 animate-glow">
               <h3 className="text-2xl font-bold text-white mb-4">
                 Ready to Experience the Difference?
               </h3>
@@ -443,11 +444,11 @@ const PricingSection = () => {
                 Get started today with our 30-day money-back guarantee.
               </p>
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <button className="group bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-200 font-semibold text-lg flex items-center justify-center space-x-2 transform hover:scale-105">
+                <button className="group bg-gradient-to-r from-blue-500 to-purple-600 text-white px-8 py-4 rounded-xl hover:from-blue-600 hover:to-purple-700 transition-all duration-300 font-semibold text-lg flex items-center justify-center space-x-2 transform hover:scale-105 hover:shadow-xl hover:shadow-blue-500/25">
                   <span>Start Your Free Trial</span>
-                  <Star className="h-5 w-5 group-hover:rotate-12 transition-transform" />
+                  <Star className="h-5 w-5 group-hover:rotate-180 transition-transform duration-500" />
                 </button>
-                <button className="text-white border-2 border-gray-600 hover:border-white px-8 py-4 rounded-xl transition-all duration-200 font-semibold text-lg hover:bg-white/10">
+                <button className="text-white border-2 border-gray-600 hover:border-white px-8 py-4 rounded-xl transition-all duration-300 font-semibold text-lg hover:bg-white/10 transform hover:scale-105">
                   Contact Sales Team
                 </button>
               </div>
